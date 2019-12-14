@@ -22,9 +22,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.example.cs_ia_0512.MainActivity.conn;
 
-public class Booklist extends ListActivity {
+public class Booklist extends AppCompatActivity {
     public static String ChosenBook;
 
     int subject_id = Subjectslist.getData();
@@ -44,35 +43,39 @@ public class Booklist extends ListActivity {
         setContentView(R.layout.activity_booklist);
         conn = SQLConnection.connect();
         final ListView Books_list = findViewById(R.id.list);
+
         adapter = new ArrayAdapter<String>(this, R.layout.listitem2, bl);
-        setListAdapter(adapter);
+        Books_list.setAdapter(adapter);
 
         Books_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Connection conn = MainActivity.conn;
-                Statement stmt = null;
-                PreparedStatement get;
-                ResultSet rs;
                 String Book_name;
-                int counter;
-                try {
+               Book_name = (String) Books_list.getItemAtPosition(i);
+//
+//                Connection conn = SQLConnection.connect();
+//                Statement stmt = null;
+//                PreparedStatement get;
+//                ResultSet rs;
+//
+//                int counter;
+//                try {
 //            rs = stmt.executeQuery("SELECT COUNT (*) FROM BOOKS WHERE SUBJECT_ID LIKE '" + subject_id + "')");
 //            int BOOK_NUM = rs.getInt("COUNT");
-                    rs = stmt.executeQuery("SELECT * FROM BOOKS WHERE SUBJECT_ID LIKE '" + subject_id + "')");
-                    while ( rs.next()) {
-                        Book_name = rs.getString("BOOK_NAME");
-                        bl.add(Book_name);
-                    }
-                    if (conn != null)
-                        conn.close();
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Book_name=(Books_list.getItemAtPosition(i)).toString();
-                Intent intent = new Intent(Booklist.this, ChoosingAction.class);
-                startActivity(intent);
+//                    rs = stmt.executeQuery("SELECT * FROM BOOKS WHERE SUBJECT_ID LIKE '" + subject_id + "')");
+//                    while ( rs.next()) {
+//                        Book_name = rs.getString("BOOK_NAME");
+//                        bl.add(Book_name);
+//                    }
+//                    if (conn != null)
+//                        conn.close();
+//                }
+//                catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                Book_name=(Books_list.getItemAtPosition(i)).toString();
+//                Intent intent = new Intent(Booklist.this, ChoosingAction.class);
+//                startActivity(intent);
             }
         });
 
@@ -122,6 +125,27 @@ public class Booklist extends ListActivity {
 //                });
 
 
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Statement stmt = null;
+        PreparedStatement get;
+        ResultSet rs;
+
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM BOOKS WHERE SUBJECT_ID = '"+subject_id+"'");
+            while ( rs.next() ) {
+                adapter.add(rs.getString("BOOK_NAME"));
+                adapter.notifyDataSetChanged();
+            }
+            if (conn != null)
+                conn.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
     }
 
     //METHOD WHICH WILL HANDLE DYNAMIC INSERTION
