@@ -87,6 +87,9 @@ public class Login extends AppCompatActivity {
         @Override
         protected String doInBackground(String... args)
         {
+            if (args[0] == null || args[1] == null)
+                return "";
+                    
             String username = args[0];
             String password = args[1];
             if(username.trim().equals("")|| password.trim().equals(""))
