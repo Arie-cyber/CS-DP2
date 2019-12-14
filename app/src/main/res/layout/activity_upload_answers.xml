@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        tools:context=".UploadAnswers">
+
+
+        <Button
+            android:id="@+id/btnChoose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="choose file" />
+
+        <EditText
+            android:id="@+id/pageNum"
+            android:layout_width="142dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginLeft="11dp"
+            android:layout_toEndOf="@+id/btnChoose"
+            android:layout_toRightOf="@+id/btnChoose"
+            android:hint="Page Number" />
+
+        <EditText
+            android:id="@+id/questNum"
+            android:layout_width="142dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginLeft="11dp"
+            android:layout_toEndOf="@+id/pageNum"
+            android:layout_toRightOf="@+id/pageNum"
+            android:hint="Ques Num" />
+
+        <ImageView
+            android:id="@+id/imageView111"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/progress_bar"
+            android:layout_below="@+id/pageNum"
+            android:layout_marginTop="16dp" />
+
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnUpload"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnUpload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:text="Upload" />
+
+        <TextView
+            android:id="@+id/text_view_show_uploads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btnUpload"
+            android:layout_alignBottom="@+id/btnUpload"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_toEndOf="@+id/btnUpload"
+            android:layout_toRightOf="@+id/btnUpload"
+            android:gravity="center"
+            android:text="Show Uploads"
+            android:textSize="16sp" />
+
+        <!--    <LinearLayout-->
+        <!--        android:id="@+id/Linearlayout"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="match_parent"-->
+        <!--        android:orientation="horizontal"-->
+        <!--        tools:layout_editor_absoluteX="86dp"-->
+        <!--        tools:layout_editor_absoluteY="58dp">-->
+
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imageView111"-->
+        <!--            android:layout_width="417dp"-->
+        <!--            android:layout_height="346dp"-->
+        <!--            android:layout_below="@id/Linearlayout"-->
+        <!--            android:layout_marginStart="0dp"-->
+        <!--            android:layout_marginLeft="80dp"-->
+        <!--            android:layout_marginTop="350dp"-->
+        <!--            android:layout_marginEnd="0dp"-->
+        <!--            android:layout_marginRight="80dp"-->
+        <!--            android:layout_marginBottom="0dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--        <Spinner-->
+        <!--            android:id="@+id/spinnerPN"-->
+        <!--            android:layout_width="80dp"-->
+        <!--            android:layout_height="80dp"-->
+        <!--            android:layout_marginStart="80dp"-->
+        <!--            android:layout_marginLeft="80dp"-->
+        <!--            android:layout_marginTop="80dp"-->
+        <!--            android:layout_marginEnd="80dp"-->
+        <!--            android:layout_marginRight="80dp"-->
+        <!--            android:layout_marginBottom="80dp"-->
+        <!--            android:entries="@array/pagenumber"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/spinnerQN"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--        <Spinner-->
+        <!--            android:id="@+id/spinnerQN"-->
+        <!--            android:layout_width="122dp"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:layout_marginStart="80dp"-->
+        <!--            android:layout_marginLeft="80dp"-->
+        <!--            android:layout_marginTop="40dp"-->
+        <!--            android:entries="@array/Qnumber"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/spinnerPN" />-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/btnUpload"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="170dp"-->
+        <!--            android:layout_marginLeft="170dp"-->
+        <!--            android:layout_marginTop="44dp"-->
+        <!--            android:layout_marginEnd="153dp"-->
+        <!--            android:layout_marginRight="153dp"-->
+        <!--            android:layout_marginBottom="325dp"-->
+        <!--            android:text="Upload Answer"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/spinnerQN" />-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/btnChoose"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="80dp"-->
+        <!--            android:layout_marginLeft="80dp"-->
+        <!--            android:layout_marginTop="80dp"-->
+        <!--            android:layout_marginEnd="80dp"-->
+        <!--            android:layout_marginRight="80dp"-->
+        <!--            android:layout_marginBottom="20dp"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:text="Choose"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/spinnerPN"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"></Button>-->
+
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/text_view_show_uploads"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignBaseline="@+id/btnUpload"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginLeft="16dp"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:text="show Uploads"-->
+        <!--            android:textSize="16sp"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/Linearlayout"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"/>-->
+
+
+        <!--    </LinearLayout>-->
+
+    </RelativeLayout>
+
