@@ -20,7 +20,6 @@ public class Subjectslist extends AppCompatActivity {
     private static int subject_id;
     Connection conn;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,40 +64,5 @@ public class Subjectslist extends AppCompatActivity {
         return subject_id;
     }
 
-    public static int insertValue() {
-        Connection conn = SQLConnection.connect();
-        Statement stmt = null;
-        try {
-            stmt = conn.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        try { //TODO: query matches the table definition. create subjects list
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('1', 'ENGLISH A')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('2', 'HEBREW')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('3', 'Arabic')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('4', 'English B')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('5', 'French AB')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('6', 'Spanish AB')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('7', 'Economics')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('8', 'Global politics')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('9', 'Psychology')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('10', 'Philosophy')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('11', 'Computer Science')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('12', 'Chemistry')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('13', 'Biology')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('14', 'Physics')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('15', 'Math')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('16', 'Chemistry')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS" + "VALUES ('17', 'Art')");
-
-            // create a list of all the subjects
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return 0;
-    }
 }

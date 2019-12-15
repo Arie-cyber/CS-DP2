@@ -32,6 +32,7 @@ public class Booklist extends AppCompatActivity {
     //android:divider="@null"
     public ListView list;
     Connection conn;
+    private static String Book_name;
 
 
 
@@ -50,7 +51,6 @@ public class Booklist extends AppCompatActivity {
         Books_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String Book_name;
                Book_name = (String) Books_list.getItemAtPosition(i);
 //
 //                Connection conn = SQLConnection.connect();
@@ -78,11 +78,6 @@ public class Booklist extends AppCompatActivity {
 //                startActivity(intent);
             }
         });
-
-
-
-
-
 //        // Create an ArrayAdapter from List
 //        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
 //                (this, android.R.layout.simple_list_item_1, Bookslist);
@@ -90,11 +85,6 @@ public class Booklist extends AppCompatActivity {
 //        // DataBind ListView with items from ArrayAdapter
 //        Books_list.setAdapter(arrayAdapter);
 //        // Create a List from String Array elements
-//
-//        // insert list view
-
-
-
 //
 //                List Books_list = Arrays.asList(Bookslist);
 //                List<HashMap<String, String>> Bookslist = new ArrayList<HashMap<String, String>>();
@@ -147,6 +137,10 @@ public class Booklist extends AppCompatActivity {
             System.err.println(e.getMessage());
         }
     }
+    public static String getData(){
+
+        return Book_name;
+    }
 
     //METHOD WHICH WILL HANDLE DYNAMIC INSERTION
 //    public void addItems(View v) {
@@ -155,41 +149,5 @@ public class Booklist extends AppCompatActivity {
 ////        adapter.notifyDataSetChanged();
 //    }
 
-    public static int insertBooks() {
 
-        Connection conn = SQLConnection.connect();
-        Statement stmt = null;
-        try {
-            stmt = conn.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try { //TODO: query does not match the table definition. book id,book_name,subject id
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('11', 'English A: literature second edition (Oxford)', '1')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('12', 'English A:literature-course companion', '1')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('13', 'English A:language and literature', '1')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('21', 'NULL', '2')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('31', 'NULL', '3')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('41', 'English B - PEARSON BACCALAURREATE third edition)', '4')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('42', 'English B-course companion (OXFORD))', '4')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('51', 'English A: literature second edition (Oxford)', '5')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('61', 'Spanish ab initio - J. Rafael Angel', '6')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('71', 'English A: literature second edition (Oxford)', '7')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('81', 'GLOBAL POLITICS OXFORD (Max Kirsch)', '8')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('91', 'Psychology For the IB Diploma, Pearson', '9')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('101', 'PHILOSOPHY- BEING HUMAN (OXFORD)', '10')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('111', 'COMPUTER SCIENCE 2018 EDITION ', '11')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('121', 'English A: literature second edition (Oxford)', '12')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('131', 'English A: literature second edition (Oxford)', '13')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('141', 'Physics- 2014 Edition OXFORD IB STUDY GUIDE', '14')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('151', 'Mathematics for the international student, Mathematics SL(third edition)', '15')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('161', 'NULL')', '16')");
-            stmt.executeUpdate("INSERT INTO BOOKS" + "VALUES ('171', 'VISUAL_ARTS (OXFORD) JAYSON PATERSON', '17')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return 0;
-    }
 }

@@ -31,7 +31,7 @@ public class Answers extends AppCompatActivity {
         btnwatchanswer = (Button) findViewById(R.id.btnwatchanswer);
         txtPageNum = (EditText) findViewById(R.id.txtPageNum);
         txtQuestionNum = (EditText) findViewById(R.id.txtQuestionNum);
-        Connection conn = MainActivity.conn;
+        Connection conn = SQLConnection.connect();
 
         String page_number;
         String question_number;

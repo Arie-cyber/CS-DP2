@@ -15,12 +15,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static com.example.cs_ia_0512.MainActivity.conn;
 
 public class SignUp extends AppCompatActivity {
     private Button btnSignup1;
     private EditText txtName,txtPassword1, txtEmail,txtCountry;
     private TextView txtSignup1;
+    Connection conn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -35,7 +35,6 @@ import java.sql.Statement;
 import java.io.ByteArrayOutputStream;
 
 import static com.example.cs_ia_0512.Booklist.ChosenBook;
-import static com.example.cs_ia_0512.MainActivity.conn;
 
 public class UploadAnswers extends AppCompatActivity {
 
@@ -51,6 +50,8 @@ public class UploadAnswers extends AppCompatActivity {
     String un,ip,password,db;
     String encodedImage;
     byte[] byteArray;
+    Connection conn;
+    String Book_name = Booklist.getData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,6 @@ public class UploadAnswers extends AppCompatActivity {
         questNum = (EditText) findViewById(R.id.questNum);
         mProgressBar = findViewById(R.id.progress_bar);
         text_view_show_uploads = findViewById(R.id.text_view_show_uploads);
-        Connection con;
         String ip, port,db, un, password;
 
         btnChoose.setOnClickListener(new View.OnClickListener(){
@@ -77,6 +77,7 @@ public class UploadAnswers extends AppCompatActivity {
                     startActivityForResult(intent, OPEN_DOCUMENT_CODE);
                 }
                 else{
+
                     Toast.makeText(UploadAnswers.this, "A picture was not chosen", Toast.LENGTH_SHORT).show();
                 }
 

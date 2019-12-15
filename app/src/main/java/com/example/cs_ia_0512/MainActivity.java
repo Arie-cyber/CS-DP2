@@ -19,7 +19,7 @@ import java.util.LinkedList;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
     private Button button1234;
-    public static Connection conn;
+    private static Connection conn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

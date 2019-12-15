@@ -22,7 +22,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static com.example.cs_ia_0512.MainActivity.conn;
 
 public class Login extends AppCompatActivity {
     private Button btnLogin, btnSignup;
@@ -31,10 +30,12 @@ public class Login extends AppCompatActivity {
     private TextView textView;
     private ProgressBar progressBar12345;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        SQLConnection.connect();
 
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnSignup = (Button) findViewById(R.id.btnSignup);
@@ -87,9 +88,11 @@ public class Login extends AppCompatActivity {
         @Override
         protected String doInBackground(String... args)
         {
+            if (args.length < 2)
+                return "";
             if (args[0] == null || args[1] == null)
                 return "";
-                    
+
             String username = args[0];
             String password = args[1];
             if(username.trim().equals("")|| password.trim().equals(""))
