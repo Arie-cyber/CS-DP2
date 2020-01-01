@@ -39,7 +39,9 @@ public class SQLConnection {
         Createtables(conn);
         System.err.println("*****************************************************\n populating tables\n*****************************");
         insertValue(conn);
+        System.err.println("*****************************************************\n insert subkects\n*****************************");
         insertBooks(conn);
+        System.err.println("*****************************************************\n booksss\n*****************************");
         return conn;
     }
     private static void Createtables(Connection conn){
@@ -67,6 +69,7 @@ public class SQLConnection {
             String create_answers = "CREATE TABLE ANSWERS " +
                     "(ANSWER_ID INTEGER not NULL, " +
                     " BOOK_ID INTEGER not NULL, " +
+                    " ANSWER_NAME VARCHAR(255), " +
                     " IMAGE IMAGE, " +
                     " PAGE_NUM INTEGER not NULL, " +
                     " QUESTION_NUM INTEGER not NULL, " +
@@ -117,13 +120,13 @@ public class SQLConnection {
         }
 
         try {
-            rs = stmt.executeQuery("SELECT COUNT(*) AS TOTAL FROM BOOKS");
-            count = rs.getInt("TOTAL");
+            rs = stmt.executeQuery("SELECT * FROM BOOKS");
+            if (rs.next()== true) {
+                return 0;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (count > 0)
-            return 0;
         try { //TODO: query does not match the table definition. book id,book_name,subject id
             stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('11', 'English A: literature second edition (Oxford)', '1')");
             stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('12', 'English A:literature-course companion', '1')");
@@ -132,15 +135,15 @@ public class SQLConnection {
             stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('31', 'NULL', '3')");
             stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('41', 'English B - PEARSON BACCALAURREATE third edition)', '4')");
             stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('42', 'English B-course companion (OXFORD))', '4')");
-            stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('51', 'English A: literature second edition (Oxford)', '5')");
+            stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('51', 'NULL', '5')");
             stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('61', 'Spanish ab initio - J. Rafael Angel', '6')");
-            stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('71', 'English A: literature second edition (Oxford)', '7')");
+            stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('71', 'NULL', '7')");
             stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('81', 'GLOBAL POLITICS OXFORD (Max Kirsch)', '8')");
             stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('91', 'Psychology For the IB Diploma, Pearson', '9')");
             stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('101', 'PHILOSOPHY- BEING HUMAN (OXFORD)', '10')");
             stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('111', 'COMPUTER SCIENCE 2018 EDITION ', '11')");
-            stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('121', 'English A: literature second edition (Oxford)', '12')");
-            stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('131', 'English A: literature second edition (Oxford)', '13')");
+            stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('121', 'NULL', '12')");
+            stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('131', 'NULL', '13')");
             stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('141', 'Physics- 2014 Edition OXFORD IB STUDY GUIDE', '14')");
             stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('151', 'Mathematics for the international student, Mathematics SL(third edition)', '15')");
             stmt.executeUpdate("INSERT INTO BOOKS " + "VALUES ('161', 'NULL')', '16')");
@@ -153,30 +156,40 @@ public class SQLConnection {
     }
     public static int insertValue(Connection conn) {
         Statement stmt = null;
+        ResultSet rs;
         try {
             stmt = conn.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        try {
+            rs = stmt.executeQuery("SELECT * FROM SUBJECTS");
+            if (rs.next() == true) {
+                return 0;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         try { //TODO: query matches the table definition. create subjects list
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('1', 'ENGLISH A')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('2', 'HEBREW')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('3', 'Arabic')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('4', 'English B')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('5', 'French AB')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('6', 'Spanish AB')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('7', 'Economics')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('8', 'Global politics')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('9', 'Psychology')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('10', 'Philosophy')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('11', 'Computer Science')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('12', 'Chemistry')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('13', 'Biology')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('14', 'Physics')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('15', 'Math')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('16', 'Chemistry')");
-            stmt.executeUpdate("INSERT INTO SUBJECTS " + "VALUES ('17', 'Art')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('1', 'ENGLISH A')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('2', 'HEBREW')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('3', 'Arabic')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('4', 'English B')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('5', 'French AB')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('6', 'Spanish AB')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('7', 'Economics')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('8', 'Global politics')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('9', 'Psychology')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('10', 'Philosophy')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('11', 'Computer Science')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('12', 'Chemistry')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('13', 'Biology')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('14', 'Physics')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('15', 'Math')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('16', 'Chemistry')");
+            stmt.executeUpdate("INSERT INTO SUBJECTS " + " VALUES ('17', 'Art')");
 
             // create a list of all the subjects
 
@@ -187,7 +200,4 @@ public class SQLConnection {
         return 0;
     }
 
-
-
-
-}
+    }

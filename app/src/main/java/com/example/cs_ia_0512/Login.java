@@ -29,7 +29,7 @@ public class Login extends AppCompatActivity {
     private EditText txtPassword;
     private TextView textView;
     private ProgressBar progressBar12345;
-
+    Connection conn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,6 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                String username = txtUsername.getText().toString();
-                String password = txtPassword.getText().toString();
                 CheckLogin checkLogin = new CheckLogin();// this is the Asynctask, which is used to process in background to reduce load on app process
                 checkLogin.execute("");
                 Intent intent = new Intent(Login.this, Subjectslist.class);
@@ -65,12 +63,15 @@ public class Login extends AppCompatActivity {
     }
     public class CheckLogin extends AsyncTask<String,String,String>
     {
+        String username = txtUsername.getText().toString();
+        String password = txtPassword.getText().toString();
         String MS = "";
         Boolean isSuccess = false;
 
         @Override
         protected void onPreExecute()
         {
+
             progressBar12345.setVisibility(View.VISIBLE);
         }
 
@@ -93,15 +94,15 @@ public class Login extends AppCompatActivity {
             if (args[0] == null || args[1] == null)
                 return "";
 
-            String username = args[0];
-            String password = args[1];
+            username = args[0];
+            password = args[1];
             if(username.trim().equals("")|| password.trim().equals(""))
                 MS = "Please enter Username and Password";
             else
             {
                 try
                 {
-                    Connection conn = SQLConnection.connect();
+                    conn = SQLConnection.connect();
                     Statement stmt = null; // Connect to database
                     if (conn == null)
                     {
@@ -110,7 +111,7 @@ public class Login extends AppCompatActivity {
                     else
                     {
                         // Change below query according to your own database.
-                        String query = "select * from USERS where USERNAME= '" + username.toString() + "' and PASSWORD = '"+ password.toString() +"'  ";
+                        String query = "select * from USERS where USERNAME= '" + username + "' and PASSWORD = '"+ password +"'  ";
                         stmt = conn.createStatement();
                         ResultSet rs = stmt.executeQuery(query);
                         if(rs.next())

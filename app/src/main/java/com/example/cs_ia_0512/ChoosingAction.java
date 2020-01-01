@@ -8,9 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import static com.example.cs_ia_0512.Booklist.ChosenBook;
+
 
 public class ChoosingAction extends AppCompatActivity {
+    String ChosenBook = Booklist.getData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +19,7 @@ public class ChoosingAction extends AppCompatActivity {
         setContentView(R.layout.activity_choosing_action);
         TextView Title = findViewById(R.id.txtviewtitle);
         Title.setText(ChosenBook);
+        System.out.println(ChosenBook);
 
 
         Button uploadingfiles = findViewById(R.id.btnuploading);

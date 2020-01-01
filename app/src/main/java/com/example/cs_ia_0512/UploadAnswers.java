@@ -44,6 +44,7 @@ public class UploadAnswers extends AppCompatActivity {
     private Uri mImageUri;
     private EditText pageNum;
     private EditText questNum;
+    private EditText PIC_name;
     private TextView text_view_show_uploads;
     private ProgressBar mProgressBar;
     private final int RESULT_LOAD_IMAGE= 1;
@@ -51,7 +52,12 @@ public class UploadAnswers extends AppCompatActivity {
     String encodedImage;
     byte[] byteArray;
     Connection conn;
-    String Book_name = Booklist.getData();
+    String ChosenBook = Booklist.getData();
+    int book_id;
+    int Answer_id;
+    String Pagenumber;
+    String Questionnumber;
+    String Pic_Name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,7 @@ public class UploadAnswers extends AppCompatActivity {
         btnUpload = (Button) findViewById(R.id.btnUpload);
         pageNum = (EditText) findViewById(R.id.pageNum);
         questNum = (EditText) findViewById(R.id.questNum);
+        PIC_name = (EditText) findViewById(R.id.PIC_name);
         mProgressBar = findViewById(R.id.progress_bar);
         text_view_show_uploads = findViewById(R.id.text_view_show_uploads);
         String ip, port,db, un, password;
@@ -89,49 +96,53 @@ public class UploadAnswers extends AppCompatActivity {
             public void onClick(View view) {
                 Connection conn = SQLConnection.connect();
                 Statement stmt = null;
-                int b_id = 0;
-                b_id = gettingid();
-                String page_number;
-                String question_number;
-                page_number = PN_VALUE();
-                question_number= QN_VALUE();
-                int a_id = 0;
-                try {
-                    a_id = AnswerID();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+//                int b_id = 0;
+//                b_id = gettingid();
+//                System.err.println("************************** /n got book id **********************");
+//                String page_number;
+//                String question_number;
+//                page_number = PN_VALUE();
+//                System.err.println("**************************got pn value **********************");
+//                question_number= QN_VALUE();
+//                int a_id = 0;
+//                try {
+//                    a_id = AnswerID();
+//                    System.err.println("**************************got answer id**********************");
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
                 mProgressBar.setVisibility(View.GONE);
-
-
                 try {
                     stmt = conn.createStatement();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
                 try {
-//                    String query = "INSERT INTO ANSWERS" + "VALUES ('";
-//                    query = query + a_id;
-//                    query = query + "' , ";  // = "INSERT INTO ANSWERS VALUES('3',
-//                    query
-                    stmt.executeUpdate("INSERT INTO ANSWERS" + "VALUES ('" + a_id + "' , ' " + b_id +"', 'Mr.', '" +page_number+ "', '" +question_number+ "')");
-                } catch (SQLException e) {
+                    gettingid();
+                    AnswerID();
+                    PN_VALUE();
+                    QN_VALUE();
+                    PIC_NAME();
+                    stmt.executeUpdate("INSERT INTO ANSWERS" + " VALUES ('" + Answer_id + "' , ' " + book_id +"', '" +Pic_Name+ "', '" +encodedImage+ "', '" +Pagenumber+ "', '" +Questionnumber+ "')");
+                   //new answer was created in the database and the information exists in ANSWERS table
+                    Toast.makeText(UploadAnswers.this, "Your Answer was uploaded successfully", Toast.LENGTH_SHORT).show();
+                }
+                catch (SQLException e) {
                     e.printStackTrace();
                 }
-
-
                 Intent intent = new Intent(UploadAnswers.this, UploadAnswers.class);
                 startActivity(intent);
             }
         });
+
+
+
         ip= "arielcs.database.windows.net";
         db = "CSIA";
         un ="ariel";
         port="1433";
         password = "Zigler1805";
 
-//        int ANSWER_ID =
 
 //        " BOOK_ID INTEGER not NULL, " +
 //                " IMAGE IMAGE, " +
@@ -163,57 +174,71 @@ public class UploadAnswers extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
     }
-    private void InsertAnswers(){
 
-    }
-    private int gettingid(){
-        Connection conn = SQLConnection.connect();
+    private int gettingid() {
+        conn = SQLConnection.connect();
         Statement stmt = null;
-        ResultSet rs= null;
-        int book_id=0;
+        ResultSet rs = null;
+        book_id = 0;
         try {
             stmt = conn.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            rs = stmt.executeQuery("SELECT * FROM BOOKS WHERE BOOK_NAME = '"+ChosenBook+"'");
+            rs = stmt.executeQuery("SELECT * FROM BOOKS WHERE BOOK_NAME LIKE '" + ChosenBook + "'");
+            if (rs.next())
+                book_id = rs.getInt("BOOK_ID");
+            else
+                book_id = 0;
+
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+        return book_id;
+
+    }
+    private int AnswerID() throws SQLException {
+        conn = SQLConnection.connect();
+        Statement stmt = null;
+        ResultSet rs = null;
+        Answer_id=-1;
+        try {
+            stmt = conn.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        while (true) {
-            try {
-                if (!rs.next()) break;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                book_id = rs.getInt("BOOK_ID");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return book_id;
-    }
-    private int AnswerID() throws SQLException {
-        Statement stmt = null;
-        PreparedStatement get;
-        ResultSet rs;
-        int counter;
-        stmt = conn.createStatement();
-        rs = stmt.executeQuery("SELECT COUNT (*) FROM ANSWER");
-        int AnswerId = rs.getInt("COUNT");
-        return AnswerId;
+        try {
+            rs = stmt.executeQuery("SELECT COUNT (*) FROM ANSWERS");
+            if (rs.next())
+                Answer_id = rs.getInt(1);
+            else
+                Answer_id = -1;
 
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+        return Answer_id;
     }
     private String PN_VALUE(){
-        String Pagenumber =  pageNum.getText().toString();
+        Pagenumber =  pageNum.getText().toString();
         return Pagenumber;
-
     }
     private String QN_VALUE(){
-        String Questionnumber = questNum.getText().toString();
+        Questionnumber = questNum.getText().toString();
         return Questionnumber;
+    }
+    private String PIC_NAME(){
+        Pic_Name = PIC_name.getText().toString();
+        return Pic_Name;
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {

@@ -8,23 +8,23 @@
         tools:context=".UploadAnswers">
 
 
-        <Button
+    <Button
             android:id="@+id/btnChoose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="choose file" />
 
-        <EditText
-            android:id="@+id/pageNum"
-            android:layout_width="142dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="11dp"
-            android:layout_marginLeft="11dp"
-            android:layout_toEndOf="@+id/btnChoose"
-            android:layout_toRightOf="@+id/btnChoose"
-            android:hint="Page Number" />
+    <EditText
+        android:id="@+id/pageNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginLeft="11dp"
+        android:layout_toEndOf="@+id/btnChoose"
+        android:layout_toRightOf="@+id/btnChoose"
+        android:hint="Page Number" />
 
-        <EditText
+    <EditText
             android:id="@+id/questNum"
             android:layout_width="142dp"
             android:layout_height="wrap_content"
@@ -34,16 +34,28 @@
             android:layout_toRightOf="@+id/pageNum"
             android:hint="Ques Num" />
 
-        <ImageView
-            android:id="@+id/imageView111"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/progress_bar"
-            android:layout_below="@+id/pageNum"
-            android:layout_marginTop="16dp" />
+    <EditText
+        android:id="@+id/PIC_name"
+        android:layout_width="367dp"
+        android:layout_height="39dp"
+        android:layout_below="@+id/btnChoose"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="17dp"
+        android:hint="Answer_Name" />
+
+    <ImageView
+        android:id="@+id/imageView111"
+        android:layout_width="384dp"
+        android:layout_height="490dp"
+        android:layout_above="@+id/progress_bar"
+        android:layout_below="@+id/pageNum"
+        android:layout_marginTop="69dp" />
 
 
-        <ProgressBar
+    <ProgressBar
             android:id="@+id/progress_bar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
@@ -53,7 +65,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="16dp" />
 
-        <Button
+    <Button
             android:id="@+id/btnUpload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

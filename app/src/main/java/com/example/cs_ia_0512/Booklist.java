@@ -25,7 +25,6 @@ import java.util.List;
 
 public class Booklist extends AppCompatActivity {
     public static String ChosenBook;
-
     int subject_id = Subjectslist.getData();
     ArrayList<String> bl = new ArrayList<String>();
     ArrayAdapter<String> adapter;
@@ -33,10 +32,6 @@ public class Booklist extends AppCompatActivity {
     public ListView list;
     Connection conn;
     private static String Book_name;
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
@@ -44,14 +39,18 @@ public class Booklist extends AppCompatActivity {
         setContentView(R.layout.activity_booklist);
         conn = SQLConnection.connect();
         final ListView Books_list = findViewById(R.id.list);
-
         adapter = new ArrayAdapter<String>(this, R.layout.listitem2, bl);
         Books_list.setAdapter(adapter);
 
         Books_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               Book_name = (String) Books_list.getItemAtPosition(i);
+               Book_name = (String) Books_list.getItemAtPosition(i).toString();
+                Intent intent = new Intent(Booklist.this, ChoosingAction.class);
+                startActivity(intent);
+
+            }
+        });
 //
 //                Connection conn = SQLConnection.connect();
 //                Statement stmt = null;
@@ -76,8 +75,8 @@ public class Booklist extends AppCompatActivity {
 //                Book_name=(Books_list.getItemAtPosition(i)).toString();
 //                Intent intent = new Intent(Booklist.this, ChoosingAction.class);
 //                startActivity(intent);
-            }
-        });
+
+
 //        // Create an ArrayAdapter from List
 //        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
 //                (this, android.R.layout.simple_list_item_1, Bookslist);
@@ -116,6 +115,12 @@ public class Booklist extends AppCompatActivity {
 
 
     }
+
+    public static String getData(){
+
+        return Book_name;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -125,9 +130,12 @@ public class Booklist extends AppCompatActivity {
 
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM BOOKS WHERE SUBJECT_ID = '"+subject_id+"'");
+            System.out.println("created statement");
+            rs = stmt.executeQuery("SELECT * FROM BOOKS WHERE SUBJECT_ID = '"+ subject_id +"'");
+            System.out.println("selected books\n******************************");
             while ( rs.next() ) {
                 adapter.add(rs.getString("BOOK_NAME"));
+                System.out.println("+++++++++++++++++"+subject_id);
                 adapter.notifyDataSetChanged();
             }
             if (conn != null)
@@ -137,10 +145,7 @@ public class Booklist extends AppCompatActivity {
             System.err.println(e.getMessage());
         }
     }
-    public static String getData(){
 
-        return Book_name;
-    }
 
     //METHOD WHICH WILL HANDLE DYNAMIC INSERTION
 //    public void addItems(View v) {

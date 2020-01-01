@@ -25,7 +25,7 @@ public class Subjectslist extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subjectslist);
 
-        Connection conn = SQLConnection.connect();
+        final Connection conn = SQLConnection.connect();
         final ListView Subjects = findViewById(R.id.Subjects);
         String[] SubjectArry = new String[]{"English A", "Hebrew", "Arabic", "English B", "French AB", "Spanish AB", "Economics", "Global politics",
                 "Psychology", "Philosophy", "ESS", "Computer Science", "Chemistry", "Biology","Physics", "Math", "Art"};
@@ -34,33 +34,37 @@ public class Subjectslist extends AppCompatActivity {
         Subjects.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                System.err.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&\n subject id pick");
                 subjectname=(Subjects.getItemAtPosition(i)).toString();
+                System.err.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&\n "+subjectname);
+                Statement stmt = null;
+                PreparedStatement get;
+                ResultSet rs;
+
+                try {
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery("SELECT SUBJECT_ID FROM SUBJECTS WHERE SUBJECT_NAME LIKE '" + subjectname + "'");
+                    if (rs.next())
+                        subject_id = rs.getInt("SUBJECT_ID");
+                    else
+                        subject_id = 0;
+                    System.out.println(subject_id+"**********************************");
+                    if (conn != null)
+                        conn.close();
+                } catch (Exception e) {
+                    System.err.println("Got an exception! ");
+                    System.err.println(e.getMessage());
+                }
                 Intent intent = new Intent(Subjectslist.this, Booklist.class);
                 startActivity(intent);
             }
         });
 
 
-
-        Statement stmt = null;
-        PreparedStatement get;
-        ResultSet rs;
-
-        try {
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT SUBJECT_ID FROM SUBJECTS WHERE SUBJECT_NAME LIKE '" + subjectname + "')");
-            while ( rs.next() ) {
-                subject_id = rs.getInt("SUBJECT_ID");
-            }
-            if (conn != null)
-                conn.close();
-        } catch (Exception e) {
-            System.err.println("Got an exception! ");
-            System.err.println(e.getMessage());
-        }
     }
 
     public static int getData(){
+
         return subject_id;
     }
 

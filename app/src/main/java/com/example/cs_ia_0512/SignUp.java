@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +22,9 @@ public class SignUp extends AppCompatActivity {
     private EditText txtName,txtPassword1, txtEmail,txtCountry;
     private TextView txtSignup1;
     Connection conn;
+    int User_ID, User_ID_g;
+    String Country, Email,UserName, Password1;
+    String Country_g, Email_g,UserName_g, Password1_g;
 
 
     @Override
@@ -36,69 +40,91 @@ public class SignUp extends AppCompatActivity {
         btnSignup1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Connection conn = SQLConnection.connect();
+                conn = SQLConnection.connect();
                 Statement stmt = null;
-                int u_id = 0;
-                try {
-                    u_id = USER_ID();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
                 try {
                     stmt = conn.createStatement();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
+                ResultSet rs;
+                int pass;
                 try {
-
-//
-                    stmt.execute("INSERT INTO USERS VALUES ('" + u_id + "' , ' " + Name_Value() +"', ' " + Password_Value() +"', '" +Email_Value()+ "', '" +Country_Value()+ "')");
+                    User_ID_g= USER_ID();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                UserName_g= Name_Value();
+                Password1_g= Password_Value();
+                Email_g= Email_Value();
+                Country_g= Country_Value();
+                System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&_____________"+User_ID+"_______&&&&&&&&&&&&&&&&&"+UserName+"___________&&&&&&&&&&&&&&&&&"+Password1+"&&&&&&&&&&&&&&&&&"+Email+"&&&&&&&&&&&&&&&&&"+Country+"&&&&&&&&&&&&&&&&&");
+                try {
+                    stmt.executeUpdate("INSERT INTO USERS" + " VALUES ('" +User_ID_g+ "' , '" +UserName_g+ "' , '"+Password1_g+ "' , '" +Email_g+ "' , '" +Country_g+ "')");
+                    System.out.println("information was added___________________________________________________");
+                    Toast.makeText(SignUp.this, "SIGNING UP COMPLETED SUCCESSFULLY", Toast.LENGTH_SHORT).show();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                if (conn != null) {
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
                 Intent intent = new Intent(SignUp.this, Subjectslist.class);
                 startActivity(intent);
-
-
             }
         });
-
     }
 
     private String Name_Value(){
-        String Name = txtName.getText().toString();
-        return Name;
-
+        UserName = txtName.getText().toString();
+        return UserName;
     }
-    private int Password_Value(){
-        String Password1 = txtPassword1.getText().toString();
-        return Integer.parseInt(Password1);
+    private String Password_Value(){
+        Password1 = txtPassword1.getText().toString();
+        return Password1;
 
     }
     private String Email_Value(){
-        String Email =  txtEmail.getText().toString();
+        Email =  txtEmail.getText().toString();
         return Email;
 
     }
     private String Country_Value(){
-        String Country =  txtCountry.getText().toString();
+        Country =  txtCountry.getText().toString();
         return Country;
 
     }
     private int USER_ID() throws SQLException {
-        Statement stmt = null;
-        PreparedStatement get;
+        conn = SQLConnection.connect();
         int counter;
-        stmt = conn.createStatement();
-        int user_Id = 0;
-        try (ResultSet rs = stmt.executeQuery("SELECT COUNT (*) AS TOTAL FROM USERS")) {
-            user_Id = rs.getInt("TOTAL");
-        } catch (Exception e) {
-            System.err.println(e.toString());
+        Statement stmt = null;
+        ResultSet rs = null;
+        int user_Id = -1;
+        try {
+            stmt = conn.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        int User_ID= user_Id+1;
+        try {
+            rs = stmt.executeQuery("SELECT COUNT (*) AS TOTAL FROM USERS");
+            while (rs.next())
+                user_Id = rs.getInt("TOTAL");
+
+            if (conn != null)
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+        User_ID= user_Id+1;
+        System.out.println("*****************************"+User_ID+"*****************************");
         return User_ID;
+
 
     }
 }
