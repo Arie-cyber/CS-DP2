@@ -123,15 +123,24 @@ public class UploadAnswers extends AppCompatActivity {
                     PN_VALUE();
                     QN_VALUE();
                     PIC_NAME();
-                    stmt.executeUpdate("INSERT INTO ANSWERS" + " VALUES ('" + Answer_id + "' , ' " + book_id +"', '" +Pic_Name+ "', '" +encodedImage+ "', '" +Pagenumber+ "', '" +Questionnumber+ "')");
-                   //new answer was created in the database and the information exists in ANSWERS table
-                    Toast.makeText(UploadAnswers.this, "Your Answer was uploaded successfully", Toast.LENGTH_SHORT).show();
+
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    encodedImage = ConverttoBase64();
+
+                    if(!encodedImage.isEmpty()) {
+                        stmt.executeUpdate("INSERT INTO ANSWERS" + " VALUES ('" + Answer_id + "' , ' " + book_id + "', '" + Pic_Name + "', '" + encodedImage + "', '" + Pagenumber + "', '" + Questionnumber + "')");
+                        //new answer was created in the database and the information exists in ANSWERS table
+                        Toast.makeText(UploadAnswers.this, "Your Answer was uploaded successfully", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                        Toast.makeText(UploadAnswers.this, "Your Answer was not upload", Toast.LENGTH_SHORT).show();
                 }
                 catch (SQLException e) {
                     e.printStackTrace();
                 }
-                Intent intent = new Intent(UploadAnswers.this, UploadAnswers.class);
-                startActivity(intent);
+//                Intent intent = new Intent(UploadAnswers.this, UploadAnswers.class);
+//                startActivity(intent);
+
             }
         });
 
@@ -253,51 +262,36 @@ public class UploadAnswers extends AppCompatActivity {
             }
         }
 
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK  && null != resultData){
-            mProgressBar.setVisibility(View.VISIBLE);
-            Bitmap originBitmap = null;
-            Uri selectedImage = resultData.getData();
-            Toast.makeText(UploadAnswers.this, selectedImage.toString(), Toast.LENGTH_LONG).show();
-            InputStream imageStream;
-            try
-            {
-                imageStream = getContentResolver().openInputStream(selectedImage);
-                originBitmap = BitmapFactory.decodeStream(imageStream);
-            }
-            catch (FileNotFoundException e)
-            {
-                System.out.println(e.getMessage().toString());
-            }
-            if (originBitmap != null)
-            {
-                this.imageView111.setImageBitmap(originBitmap);
-                Log.w("Image Setted in", "Done Loading Image");
-                try
-                {
-                    Bitmap image = ((BitmapDrawable) imageView111.getDrawable()).getBitmap();
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    image.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
-                    byteArray = byteArrayOutputStream.toByteArray();
-                    encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                    // Calling the background process so that application wont slow down
-                    UploadImage uploadImage = new UploadImage();
-                    uploadImage.execute("");
-                    //End Calling the background process so that application wont slow down
-                }
-                catch (Exception e)
-                {
-                    Log.w("OOooooooooo","exception");
-                }
-                Toast.makeText(UploadAnswers.this, "Conversion Done",Toast.LENGTH_SHORT).show();
-            }
-            // End getting the selected image, setting in imageview and converting it to byte and base 64
-        }
-        else
-        {
-            System.out.println("Error Occured");
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != resultData) {
+
+
         }
 
+
     }
+    private String ConverttoBase64() {
+        Bitmap bitmap = null;
+
+        BitmapDrawable drawable = (BitmapDrawable) imageView111.getDrawable();
+        bitmap = drawable.getBitmap();
+
+
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+
+
+        if(!encoded.isEmpty())
+            Toast.makeText(UploadAnswers.this, "Conversion Done", Toast.LENGTH_SHORT).show();
+
+        return encoded;
+    }
+
+        // End getting the selected image, setting in imageview and converting it to byte and base 64
+
 
 
 

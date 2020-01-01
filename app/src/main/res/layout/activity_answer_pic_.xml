@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:padding="16dp"
-tools:context=".Requested_Answers_list">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Requested_Answers_list">
 
     <TextView
         android:id="@+id/txtAnswer"
@@ -26,7 +25,6 @@ tools:context=".Requested_Answers_list">
         app:layout_constraintTop_toTopOf="parent"/>
 
 
-
     <ListView
         android:id="@+id/answer_list"
         android:layout_width="match_parent"
@@ -39,5 +37,11 @@ tools:context=".Requested_Answers_list">
         app:layout_constraintTop_toBottomOf="@+id/txtAnswer"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
 

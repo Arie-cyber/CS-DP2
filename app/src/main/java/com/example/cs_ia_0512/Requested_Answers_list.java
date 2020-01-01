@@ -53,7 +53,8 @@ import java.util.ArrayList;
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Chosen_Answer = (String) list.getItemAtPosition(i).toString();
-                Intent intent = new Intent(Requested_Answers_list.this, ChoosingAction.class);
+                Intent intent = new Intent(Requested_Answers_list.this, Answers_3.class);
+                intent.putExtra("Chosen_Answer", Chosen_Answer);
                 startActivity(intent);
 
             }
@@ -71,7 +72,8 @@ import java.util.ArrayList;
          try {
              stmt = conn.createStatement();
              System.out.println("created statement");
-             rs = stmt.executeQuery("SELECT * FROM ANSWERS WHERE BOOK_ID LIKE '"+ book_id +"' AND PAGE_NUM LIKE'"+ page_number +"' AND QUESTION_NUM LIKE'"+ question_number +"'");
+             rs = stmt.executeQuery("SELECT * FROM ANSWERS WHERE BOOK_ID LIKE '"+ book_id +"' and PAGE_NUM LIKE '"+ page_number +"' and QUESTION_NUM LIKE'"+ question_number +"'");
+             System.out.println("________________________________________________________________________________-selected");
              while ( rs.next() ) {
                  String strRs = rs.getString("ANSWER_NAME");
                  adapter.add(strRs);

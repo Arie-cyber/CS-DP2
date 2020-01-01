@@ -6,38 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".Answers_3">
 
+
+    <!--    <ImageView-->
+<!--        android:id="@+id/imageView111"-->
+<!--        android:layout_width="459dp"-->
+<!--        android:layout_height="578dp"-->
+<!--        android:layout_above="@+id/progress_bar"-->
+<!--        android:layout_below="@+id/txtChosenAnswer"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:layout_marginBottom="17dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/txtChosenAnswer"-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
     <TextView
         android:id="@+id/txtChosenAnswer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:drawSelectorOnTop="false"
-        android:scrollbars="vertical"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="76dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:drawSelectorOnTop="false"
         android:gravity="center"
+        android:scrollbars="vertical"
         android:text="Answer"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView111"
-        android:layout_width="459dp"
-        android:layout_height="578dp"
-        android:layout_above="@+id/progress_bar"
-        android:layout_below="@+id/txtChosenAnswer"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="17dp"
+        android:layout_width="387dp"
+        android:layout_height="500dp"
+        android:layout_below="@+id/progress_bar"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="87dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtChosenAnswer"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -50,6 +63,7 @@
         android:layout_marginBottom="14dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView111"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtChosenAnswer" />
 
