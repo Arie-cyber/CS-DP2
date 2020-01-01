@@ -31,6 +31,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
  public class Requested_Answers_list extends AppCompatActivity {
+     final String TAG =  Requested_Answers_list.class.getSimpleName();
      int book_id = Answers.getbookid();
      String page_number = Answers.PN_VALUE();
      String question_number = Answers.QN_VALUE();
@@ -45,13 +46,13 @@ import java.util.ArrayList;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_pic_);
         conn = SQLConnection.connect();
-        final ListView Answers_list = findViewById(R.id.list);
+        list = findViewById(R.id.answer_list);
         adapter = new ArrayAdapter<String>(this, R.layout.list_item3, Answer_l);
-        Answers_list.setAdapter(adapter);
-        Answers_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Chosen_Answer = (String) Answers_list.getItemAtPosition(i).toString();
+                Chosen_Answer = (String) list.getItemAtPosition(i).toString();
                 Intent intent = new Intent(Requested_Answers_list.this, ChoosingAction.class);
                 startActivity(intent);
 
@@ -72,9 +73,11 @@ import java.util.ArrayList;
              System.out.println("created statement");
              rs = stmt.executeQuery("SELECT * FROM ANSWERS WHERE BOOK_ID LIKE '"+ book_id +"' AND PAGE_NUM LIKE'"+ page_number +"' AND QUESTION_NUM LIKE'"+ question_number +"'");
              while ( rs.next() ) {
-                 adapter.add(rs.getString("ANSWER_NAME"));
-                 adapter.notifyDataSetChanged();
+                 String strRs = rs.getString("ANSWER_NAME");
+                 adapter.add(strRs);
+                 Log.d(TAG,"answer name: " + strRs);
              }
+             adapter.notifyDataSetChanged();
              if (conn != null)
                  conn.close();
          } catch (Exception e) {

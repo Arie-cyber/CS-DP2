@@ -136,8 +136,8 @@ public class Booklist extends AppCompatActivity {
             while ( rs.next() ) {
                 adapter.add(rs.getString("BOOK_NAME"));
                 System.out.println("+++++++++++++++++"+subject_id);
-                adapter.notifyDataSetChanged();
             }
+            adapter.notifyDataSetChanged();
             if (conn != null)
                 conn.close();
         } catch (Exception e) {
